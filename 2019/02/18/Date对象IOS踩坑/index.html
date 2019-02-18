@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Date对象IOS踩坑 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近在做一个托管教师端小程序，里面有一个功能是选择某个日期加载该老师相关的课程，这里就需要用到日历组件。基于后台返回的数据及减少对日历组件的修改，我选择了对小程序一开始自配备的转换时间格式方法进行了修改。用起来也没有太大毛病，坑就在这里埋下了。12345678910111213141516171819const formatTime = date =&amp;gt; &amp;#123;  const year">
+<meta name="keywords" content="IOS踩坑">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Date对象IOS踩坑">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/Date对象IOS踩坑/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="最近在做一个托管教师端小程序，里面有一个功能是选择某个日期加载该老师相关的课程，这里就需要用到日历组件。基于后台返回的数据及减少对日历组件的修改，我选择了对小程序一开始自配备的转换时间格式方法进行了修改。用起来也没有太大毛病，坑就在这里埋下了。12345678910111213141516171819const formatTime = date =&amp;gt; &amp;#123;  const year">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-18T03:35:51.008Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Date对象IOS踩坑">
+<meta name="twitter:description" content="最近在做一个托管教师端小程序，里面有一个功能是选择某个日期加载该老师相关的课程，这里就需要用到日历组件。基于后台返回的数据及减少对日历组件的修改，我选择了对小程序一开始自配备的转换时间格式方法进行了修改。用起来也没有太大毛病，坑就在这里埋下了。12345678910111213141516171819const formatTime = date =&amp;gt; &amp;#123;  const year">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Date对象IOS踩坑" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/18/Date对象IOS踩坑/" class="article-date">
+  <time datetime="2019-02-18T03:34:14.000Z" itemprop="datePublished">2019-02-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Date对象IOS踩坑
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在做一个托管教师端小程序，里面有一个功能是选择某个日期加载该老师相关的课程，这里就需要用到日历组件。基于后台返回的数据及减少对日历组件的修改，我选择了对小程序一开始自配备的转换时间格式方法进行了修改。用起来也没有太大毛病，坑就在这里埋下了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">const formatTime = date =&gt; &#123;</span><br><span class="line">  const year = date.getFullYear()</span><br><span class="line">  const month = date.getMonth() + 1</span><br><span class="line">  const day = date.getDate()</span><br><span class="line">  const hour = date.getHours()</span><br><span class="line">  const minute = date.getMinutes()</span><br><span class="line">  const second = date.getSeconds()</span><br><span class="line"></span><br><span class="line">  return [year, month, day].map(formatNumber).join(&apos;/&apos;) + &apos; &apos; + [hour, minute, second].map(formatNumber).join(&apos;:&apos;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const formatNumber = n =&gt; &#123;</span><br><span class="line">  n = n.toString()</span><br><span class="line">  return n[1] ? n : &apos;0&apos; + n</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  formatTime: formatTime</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>由于开发和调试一直用的是微信开发者工具，在开发过程中也很顺利，直到使用了真机进行测试的。在安卓机上是没有问题的，但一旦遇到了苹果机，我的整个功能就垮掉了。排查了很久才发现是日期转换的问题。</p>
+<p>在开发中，由于与日历相关，肯定会大量用到Date对象的。<br>当使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var date = new Date();</span><br></pre></td></tr></table></figure>
+<p>在安卓和苹果机上是可以运行且有结果的。<br>但是在这个项目里面需要用到根据字符串去获取日期，然后问题就来了。我的字符串日期格式是2018-01-01类型的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var date = new Date(&quot;2016-05-31&quot;);</span><br></pre></td></tr></table></figure>
+<p>这段代码是获得字符中指定的日期，它Firefox、Chrome中就能运行，但是在苹果手机就会报错，错误是NaN，意思是Not a Number。就是因为这个错，苹果手机不能正常运行。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var date =new Date(&quot;2016/05/31&quot;);</span><br></pre></td></tr></table></figure>
+<p>这种字符串格式获取日期在苹果和安卓机上都能正常运行。由于代码中大量用到的是-模式。在使用new Date的时候写一个函数去转换一下即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function GetDateDiff(startDiffTime, endDiffTime) &#123;</span><br><span class="line">            //将xxxx-xx-xx的时间格式，转换为 xxxx/xx/xx的格式 </span><br><span class="line">            startTime = startDiffTime.replace(/\-/g, &quot;/&quot;);</span><br><span class="line">            endTime = endDiffTime.replace(/\-/g, &quot;/&quot;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>不要轻易的去改微信小程序提供工具类的代码，为什么用”/“可能是有原因的，微信已经帮你兼容好了。否则，就像我一样浪费时踩来踩去的间在这个坑里</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/18/Date对象IOS踩坑/" data-id="cjs9sfxcm00013kwzro9zgqq1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IOS踩坑/">IOS踩坑</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/02/18/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS踩坑/">IOS踩坑</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/IOS踩坑/" style="font-size: 10px;">IOS踩坑</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/18/Date对象IOS踩坑/">Date对象IOS踩坑</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/18/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
